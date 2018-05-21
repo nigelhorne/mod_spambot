@@ -82,7 +82,7 @@ Sat Aug  6 18:10:24 BST 2005 (njh)
 ----------------------------------
 mod_spambot*.c:		Improved honeypot - now generates an almost endless
 				number of pages and email addresses to a
-				non-existant domain
+				non-existent domain
 
 Sat Aug  6 12:27:46 BST 2005 (njh)
 ----------------------------------
