@@ -1,0 +1,144 @@
+To install mod_spambot you need apxs (which comes in httpd-devel with
+Red Hat Linux and it's derivatives, and apache-dev on Debian), and Apache2.0
+or Apache1.3. Red Hat httpd-devel requires the libtool RPM, but this is
+not marked as a dependancy (at least it isn't with Enterprise 3ES) so you
+may need to install that by hand.
+
+Mod_spambot13.c provides the support for Apache 1.3. Mod_spambot.c provides
+the support for Apache 2.0 and 2.2.
+
+Run
+	/usr/sbin/apxs -i -a -c mod_spambot.c
+
+On Debian 4.0/5.0 with apache2 (actually this is Apache 2.2, not 2.0), you need
+to install the apache2-dev package then:
+	/usr/bin/apxs2 -i -a -c mod_spambot.c
+Create the file /etc/apache2/mods-available/spambot.load:
+	LoadModule spambot_module /usr/lib/apache2/modules/mod_spambot.so
+In /etc/apache2/mods-enabled, create a symbolic link:
+	ln -s ../mods-available/spambot.load .
+Rather than changing httpd.conf, you should create the global (i.e. non
+vhost) spambot settings in /etc/apache2/conf.d/modspambot.
+
+On FreeBSD5.3, if you have installed Apache from the ports using:
+	cd /usr/ports/www/apache2; make install
+apxs is in /usr/local/sbin:
+	/usr/local/sbin/apxs -i -a -c mod_spambot.c
+
+On Mandrake 10.1 you need apache2-devel, which is on the PowerPack+ CD.
+I don't have access to that CD, so mod_spambot isn't tested on that platform.
+
+Then amend httpd.conf (apache1.3) or
+/etc/apache2/mods-enabled/spamcop.conf (apache2), for example
+
+...
+# Use <IfModule mod_spambot13.c> on Apache1.3
+<IfModule mod_spambot.c>
+	SpamBot On
+	# SpamBotDatabaseFile /var/run/spambot.db
+	SpamBotDatabaseFile /tmp/spambot.db
+	SpamBotDebugFile /tmp/spambot.dbg
+	SpamBotTriggerLevel 100
+	SpamBotMinIdleTime 5
+	SpamBotTriggerTime 3600
+	SpamBotReuseTime 600
+	SpamBotRedirectPath /go_away.html
+	# Local addresses
+	SpamBotWhiteList 127.0.0.1
+	SpamBotWhiteList 192.168.0.0/16
+	# Google
+	SpamBotWhiteList 66.249.64.0/19
+	SpamBotWhiteList 209.85.128.0/17
+	# Ask Jeeves
+	SpamBotWhiteList 65.214.38.239
+	# MSN
+	SpamBotWhiteList 207.46.0.0/16
+	SpambotWhiteList 65.52.0.0/14
+	# Yandex - Russian language search engine
+	SpambotWhiteList 95.108.128.0/17
+	SpambotWhiteList 93.158.146.0/23
+	SpambotWhiteList 77.88.28.246
+	SpambotWhiteList 87.250.253.242
+	SpamBotDenyCode 403
+	SpamBotAddSuffix htm html
+	# For Apache 1.3
+	AddHandler spambot .htm .html
+	SpamBotSendEmail On
+</IfModule>
+
+With Apache2, create the file .../mods-available/mod-spambot.conf with a
+link in .../mods-enabled/mod-spambot.conf with the above information.
+Then create the file .../mods-available/mod-spambot.load with a link in
+.../mods-enabled/mod-spambot.load containing:
+LoadModule spambot_module /usr/lib/apache2/modules/mod_spambot.so
+
+You may set directory permissions, e.g. when using ARSC:
+
+<DirectoryMatch /var/arsc/>
+	<IfModule mod_php4.c>
+		php_flag register_globals on
+	</IfModule>
+
+	<IfModule mod_spambot13.c>
+		SpamBot Off
+	</IfModule>
+
+	Options -Indexes +FollowSymlinks
+
+	DirectoryIndex index.php index.htm
+
+	AllowOverride None
+	order allow,deny
+	allow from all
+</DirectoryMatch>
+
+Don't forget to ensure that your favourite spiders (Google, MSN, etc.) are
+whitelisted.
+
+Create the database file, e.g. ">/tmp/spambot.db" for Bourne Shell users.
+Give that file the correct ownership, e.g. for Fedora/Red Hat users:
+"chown apache:apache /tmp/spambot.db", for Debian users: "chown
+www-data:www-data /tmp/spambot.db".
+
+And finally restart httpd.
+
+On NetBSD2.0, you can install Apache from the packages, in which case
+httpd.conf is in /usr/pkg/etc/httpd/httpd.conf.
+
+On Solaris10 I only have access to the GNU C compiler, and the apxs
+so can't comment on how well it builds with SUN's C compiler.
+For apache1.3:
+	/usr/apache/bin/apxs -S CC=/opt/sfw/bin/gcc -S CFLAGS="-I/usr/ucbinclude -O2 -D_REENTRANT -D_GNU_SOURCE -DSOLARIS=2" -S LD_SHLIB=/usr/ccs/bin/ld -S CFLAGS_SHLIB="" -i -a -c mod_spambot13.c
+For apache2.0:
+	/usr/apache2/bin/apxs -S CC=/opt/sfw/bin/gcc -S CFLAGS="-I/usr/ucbinclude -O2-D_REENTRANT -D_GNU_SOURCE -DSOLARIS=2" -i -a -c mod_spambot.c
+
+Note: The ownership issue means that if you use logrotate on the debug file,
+you must remember to get the truncated file's permissions correct.
+
+Mod_spambot supports vhosts, though it's done through settings on directories
+not hosts (for now).
+
+If SpamBotDatabaseFile isn't given it defaults to /tmp/spambot.db, in
+	which case it is up to the caller to truncate the file before starting
+If spambotdebugfile isn't given, there is no debug output
+SpambotTriggerLevel - if more than this number of accesses happen in
+SpamBotTriggerTime seconds (default 3600), with less than
+SpamBotReuseTime seconds between the accesses, assume it's a spambot
+If SpamBotRedirectPath is set that's where we send matches so that they
+	can get a customised error. If set to "honeypot", a honeypot is
+	generated that will tie the spambot into a maze of twisty passages that
+	all look the same. It generates false email addresses to keep them busy
+Don't match any SpamBotWhiteList IP addresses (IPv4 only).
+When denying we send SpamBotDeny as the HTTP code (default HTTP_FORBIDDEN,
+	i.e. 403
+If SpamBotMinIdleTime is given, then any requests from an IP which arrive
+	with less time than the given number of seconds will be forced to wait
+	up to that threshold. You may find that sites with many frames will
+	not benefit from setting this value since clients may send the requests
+	for each frame in parallel, thus causing a trigger.
+SpamBotAddSuffix lists the file types that will be recognised
+If SpamBotSendEmail is set, a warning email is sent to the administrator
+	whenever a site is blocked
+SpamBotUsertrackCookieName taps into mod_usertrack to ensure that multiple
+	users using the same IP address aren't blacklisted. You must use the
+	same name for the cookie that you have used in mod_usertrack.

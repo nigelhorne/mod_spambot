@@ -1,0 +1,12 @@
+LoadModule: spambot_module /usr/lib/apache/1.3/mod_spambot13.so
+Directives:
+	SpamBot
+	SpamBotDatabaseFile
+	SpamBotDebugFile
+	SpamBotMinIdleTime
+	SpamBotAddSuffix
+	AddHandler
+	SpamBotRedirectPath
+	SpamBotDenyCode
+	SpamBotWhiteList
+Description: Stops spambot attacks to a site

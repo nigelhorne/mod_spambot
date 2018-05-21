@@ -1,0 +1,76 @@
+Mod_spambot is an Apache plugin that monitors the data being downloaded from a
+server thus stopping spambots and unwanted mirrors from copying a site's data.
+When the number of requests for a client exceeds a preset level no more
+downloads are allowed for a preset time. When this happens the client received
+a tailored message informing them of what has happened. Many of the features can
+be tailored to the needs of the webmaster to help to prevent false positives and
+to customise the definition of a client to be blacklisted.
+
+Mod_spambot comes from code written for an old website I ran. My ISP
+blacklisted the site for being too "popular". Doing research that the ISP
+couldn't be bothered to do I discovered that unwanted crawlers were bombarding
+the sites with requests. The ISP blamed me and threatened to take the site down,
+and frankly it was too much time, that I didn't have, to find a new ISP. Since
+these spiders are not real users, or Google, I had to put in code to stop them,
+mod_spambot was borne out of that need.  
+
+As a useful side-effect, mod_spambot will help the system when it suffers a
+DoS attack.
+
+If a client, that has not been whitelisted, downloads more than 100 pages in an
+hour they are blacklisted unless there has been more than 10 minutes between
+the downloads. All the figures are configurable - those values are the default.
+HEAD requests are not counted.
+
+The algorithm is simple, but surprisingly effective. No doubt it will improve
+with time and your feedback. Please send any suggestions to njh@bandsman.co.uk.
+
+To download the latest version from SVN:
+
+svn co https://spambot.svn.sourceforge.net/svnroot/spambot spambot
+
+The home page for mod_spambot is http://spambot.sourceforge.net
+
+There is a mailing list for users of mod_spambot at
+	https://lists.sourceforge.net/lists/listinfo/spambot-users
+
+Q1. I only want mod_spambot on with one vhost how do I do that?
+---------------------------------------------------------------
+
+Here's a few lines from a sample httpd.conf to do that:
+
+<IfModule mod_spambot.c>
+	SpamBot Off
+</IfModule>
+
+<VirtualHost *:80>
+	ServerName foo1.bar
+	DocumentRoot "/var/www/foo1.bar"
+</VirtualHost>
+
+<VirtualHost *:80>
+	ServerName foo2.bar
+	DocumentRoot "/var/www/foo2.bar"
+
+	<Directory /var/www/foo2.bar>
+		<IfModule mod_spambot.c>
+			SpamBot On
+			SpamBotDatabaseFile /tmp/spambot.db
+			SpamBotDebugFile /tmp/spambot.dbg
+			# SpamBotRedirectPath /err.html
+			SpamBotWhiteList 127.0.0.1
+			SpamBotWhiteList 192.168.1.2
+		</IfModule>
+
+		AllowOverride All
+	</Directory>
+</VirtualHost>
+
+Q2. My system doesn't have in_addr_t so mod_spambot fails to compile
+--------------------------------------------------------------------
+
+Older linux distributions did not have in_addr_t. To compile mod_spambot
+on your system enable the following line that is towards the top of the file:
+	typedef	unsigned	int	in_addr_t;
+
+This line is required for older Linuxes as well as Darwin.

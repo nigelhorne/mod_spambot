@@ -1,0 +1,341 @@
+Tue  4 Jun 16:41:43 BST 2013 (njh)
+----------------------------------
+mod_spambot.c:		Ported to Apache 2.4
+
+Fri Dec  3 00:22:19 GMT 2010 (njh)
+----------------------------------
+mod_spambot.c:		Improved handling of HEAD requests
+			Set the expires header to 1 year in the future for
+				honeypot matches
+
+Mon May 17 14:06:28 BST 2010 (njh)
+----------------------------------
+INSTALL:		Improved the Apache2 documentation
+
+Mon Feb 22 15:48:52 EST 2010 (njh)
+----------------------------------
+spambot_dump.c:		Added hit count and seconds since last connection
+
+Mon Feb 22 13:31:36 EST 2010 (njh)
+----------------------------------
+spambot_dump.c:		Now tries to resolve hosts
+
+Sun Feb 21 21:57:16 EST 2010 (njh)
+----------------------------------
+spambot_dump.c:		First draft
+
+Fri Jun 22 21:58:08 BST 2007 (njh)
+----------------------------------
+INSTALL:		Added instructions for Apache2 on Debian 4.0
+
+Wed Dec 20 22:03:37 GMT 2006 (njh)
+----------------------------------
+500mod_spambot13.info:	Added - used by Debian Linux
+
+Tue May 30 21:32:09 BST 2006 (njh)
+----------------------------------
+mod_spambot22.c:	Removed
+mod_spambot.c:		Merged support for Apache 2.0 and 2.2
+README:			Changed location of the CVS repository
+
+Wed May  3 09:20:12 BST 2006 (njh)
+----------------------------------
+mod_spambot22.c:	Added version for Apache 2.2. This should be merged
+				with the version for Apache 2.0
+
+Wed Apr 19 17:15:13 BST 2006 (njh)
+----------------------------------
+mod_spambot*.c, COPYING:		Changed the FSF address
+
+Mon Jan 30 10:44:44 GMT 2006 (njh)
+----------------------------------
+mod_spambot*.c:		Don't send repeated emails when a blacklisted site
+				tries again while it is still blacklisted
+
+Sun Jan 29 10:49:48 GMT 2006 (njh)
+----------------------------------
+README:			Removed misunderstanding about why the project started
+
+Thu Jan 12 15:19:49 GMT 2006 (njh)
+----------------------------------
+mod_spambot*.c:		Tidied the email message
+
+Tue Jan 10 11:45:33 GMT 2006 (njh)
+----------------------------------
+INSTALL:		Added a note about not using SpamBotMinIdle time on
+				sites with many frames.
+mod_spambot*.c:		Send an email when a client has been throttled
+
+Tue Aug 16 11:59:12 BST 2005 (njh)
+----------------------------------
+INSTALL:		Added documentation for SpamBotUsertrackCookieName
+
+Sun Aug  7 15:32:57 BST 2005 (njh)
+----------------------------------
+mod_spambot.c:		Fixed some warnings when building on FreeBSD5.3
+
+Sun Aug  7 09:20:05 BST 2005 (njh)
+----------------------------------
+Release 0.47
+
+Sat Aug  6 18:10:24 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Improved honeypot - now generates an almost endless
+				number of pages and email addresses to a
+				non-existant domain
+
+Sat Aug  6 12:27:46 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Added a simple honeypot system
+README:			Sorted it out. Too much information was being put in
+				the source code instead of the README and
+				INSTALL files
+
+Thu Aug  4 13:22:01 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Tidied strategy for looking at the whitelist
+
+Wed Aug  3 11:49:57 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Fix problem where waiting for SpamBotMinIdleTime
+				would happen with the database locked
+
+Wed Aug  3 10:54:00 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Correct the handling of authenticated clients
+
+Mon Jul 25 10:34:17 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c		Added SpamBotSendEmail
+
+Tue Jul 19 13:26:13 BST 2005 (njh)
+----------------------------------
+mod_spambot.c:		Fix SIGSEGV when not using mod_usertrack on multiple
+				vhosts
+
+Sat Jul 16 17:31:04 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Improved checking for out of memory conditions
+
+Fri Jul  8 12:24:24 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Remove compilation warning message
+
+Sun May 29 17:48:45 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Log the sitename rather than IP address, when possible
+
+Tue May 17 12:51:33 BST 2005 (njh)
+----------------------------------
+Release 0.46
+
+Fri May 13 18:08:11 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Change logging so that only the first block is logged,
+				now at level NOTICE
+			Better handling of mmap
+
+Fri May 13 11:27:42 BST 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Fix problem when SpambotRedirectPath was not finding
+				the correct file
+
+Mon May  9 10:37:11 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		SpamBotDenyCode should now work with SpamBotRedirectPath
+
+Thu May  5 11:26:04 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Use the Apache built-in MD5 routines when handling
+				mod_usertrack cookies
+
+Sun May  1 17:06:27 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		The files can now be set relative to the Apache root
+				directory
+
+Sat Apr 23 14:11:20 BST 2005 (njh)
+----------------------------------
+Release 0.45
+
+Mon Apr 18 13:37:23 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c		Clients breaking SpamBotTriggerLevel but not breaking
+				SpamBotTriggerTime were not having their access
+				count incremented
+
+Sun Apr 17 11:48:01 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c		Some clients were not being idled enough
+
+Thu Apr 14 10:08:21 BST 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Fix problem where the number of accesses for blocked
+				sites wasn't correct
+
+Tue Apr 12 10:11:49 BST 2005 (njh)
+---------------------------------
+Release 0.44
+
+Fri Apr  8 17:25:21 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		In the debug message, make it plain that a usertrack
+				site has been blocked on that cookie not IP
+				address
+
+Thu Apr  7 10:36:43 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Tweaked error codes
+
+Wed Apr  6 20:18:49 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		More vhost work
+
+Tue Apr  5 22:48:47 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Mod_usertrack support didn't track users properly
+
+Tue Apr  5 19:08:16 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Added mod_usertrack support as a means of tracking
+				users (falls back to IP address if mod_usertrack
+				is not enabled)
+
+Tue Apr  5 10:39:45 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		General tidy and started work on cross referencing
+				users against mod_usertrack
+
+Mon Apr  4 20:32:32 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Better handling of different settings on directories
+
+Mon Apr  4 18:20:48 BST 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Fixed possible core dump if debug file not set
+
+Fri Apr  1 21:37:08 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Implemented SpamBotMinIdleTime and SpamBotAddSuffix
+
+Thu Mar 31 15:23:12 BST 2005 (njh)
+----------------------------------
+mod_spambot*.c:		The HTTP code which is sent when access is denied
+				is now configurable with the SpamBotDenyCode
+				directive. The default is 403 (the old action).
+
+Fri Feb 11 13:48:22 GMT 2005 (njh)
+----------------------------------
+Release 0.43
+
+Fri Feb 11 05:18:13 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Fix bug where some accesses were logged twice
+
+Sun Feb  6 11:52:42 GMT 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Log fatal errors to error_log rather than the debug file
+mod_spambot.c:		Use apr_file_* operations to talk to the debug file,
+				this gets around the debug file ownership
+				problem (with Apache 2.0 only)
+
+Sun Feb  6 05:19:16 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Fail to start if either the database or the debug
+				file can't be opened/created
+
+Sat Feb  5 17:35:03 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Add an entry in error_log when an IP is blocked
+
+Fri Feb  4 09:25:40 GMT 2005 (njh)
+----------------------------------
+Release 0.42
+
+Thu Feb  3 19:59:14 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Fixed a small problem with the debugging code
+
+Thu Feb  3 09:17:05 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Reaccess after the grace period SpamBotReuseTime
+				(default 10 minues), was not working which
+				could block an IP address for ever
+
+Wed Jan 26 08:34:22 GMT 2005 (njh)
+----------------------------------
+Release 0.41
+
+Sun Jan 23 14:47:10 GMT 2005 (njh)
+----------------------------------
+mod_spambot.c:		Added per directory option support (except whitelists)
+
+Sun Jan 23 13:49:44 GMT 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Added per directory option support (except whitelists)
+
+Sat Jan 22 21:56:49 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Added SpamBotReuseTime
+
+Sat Jan 22 15:14:59 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Don't count HEAD requests
+
+Fri Jan 21 19:46:44 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Use apr_alloc
+			Return DECLINED, not OK, when the document is the 403
+				handler
+			Added version information to the headers
+			Changed the debugging information
+
+Wed Jan 19 19:14:00 GMT 2005 (njh)
+----------------------------------
+Release 0.40
+
+Tue Jan 18 22:03:27 GMT 2005 (njh)
+----------------------------------
+mod_spambot*.c:		Better handling of the 403 errorDocument when that is
+		requested
+
+Tue Jan 18 20:03:56 GMT 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Removed compilation warning
+mod_spambot*.c:		Block when trigger is reached, not exceeded
+INSTALL:		Discuss Debian
+
+Tue Jan 18 11:07:48 GMT 2005 (njh)
+----------------------------------
+mod_spambot13.c:	Created version for Apache1.3
+
+Sun Jan 16 08:52:39 GMT 2005 (njh)
+----------------------------------
+Release 0.32
+
+Wed Jan 12 14:46:44 GMT 2005 (njh)
+----------------------------------
+mod_spambot.c:	Fix compilation error and warnings on FreeBSD5.3
+INSTALL:	Added instructions for installing on FreeBSD5.3
+
+Wed Jan 12 12:47:52 GMT 2005 (njh)
+----------------------------------
+mod_spambot.c:	Handle IP masks in white lists, e.g. 192.168.0.0/16
+INSTALL:	spambot has been renamed mod_spambot
+
+Mon Jan 10 21:46:28 GMT 2005 (njh)
+----------------------------------
+mod_spambot.c:	Documented some TODOs
+
+Sun Jan  9 13:48:16 GMT 2005 (njh)
+----------------------------------
+INSTALL:	Created
+
+Sun Jan  9 12:43:05 GMT 2005 (njh)
+----------------------------------
+Release 0.31: tarball now uses subdirectory
+
+Sun Jan  9 11:59:59 GMT 2005 (njh)
+----------------------------------
+README:		Updated code information
+mod_spambot.c:	More example whitelist sites
