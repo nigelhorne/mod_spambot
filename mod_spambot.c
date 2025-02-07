@@ -35,7 +35,7 @@
  *	will need a complete rewrite since it would mean deciding to deny
  *	access only after the output has been assembled, which wouldn't be
  *	very efficient so I'm not likely to do it
- * TODO: Improved handing of vhosts, and test .htaccess works
+ * TODO: Improved handling of vhosts, and test .htaccess works
  * TODO: Add sanity checks that SpamBotTriggerTime <= SpamBotReuseTime,
  *		and that SpamBotMinIdleTime <= SpamBotReuseTime.
  * TODO: Instead of redirecting, send the contents of SpamBotRedirectPath

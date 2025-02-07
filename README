@@ -34,6 +34,9 @@ The home page for mod_spambot is http://spambot.sourceforge.net
 There is a mailing list for users of mod_spambot at
 	https://lists.sourceforge.net/lists/listinfo/spambot-users
 
+Please report any bugs or feature requests to the author.
+This module is provided as-is without any warranty.
+
 Q1. I only want mod_spambot on with one vhost how do I do that?
 ---------------------------------------------------------------
 
