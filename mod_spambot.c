@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2006 Nigel Horne <njh@bandsman.co.uk>
+ *  Copyright (C) 2006 Nigel Horne <njh@nigelhorne.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
