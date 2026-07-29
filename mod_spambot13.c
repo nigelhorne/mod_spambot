@@ -854,8 +854,8 @@ spambot(request_rec *r)
 
 	if(size) {
 		if(debug)
-			fprintf(debug, "size %d nrec %d\n",
-				size, size / sizeof(struct connection));
+			fprintf(debug, "size %lu nrec %lu\n",
+				size, (unsigned long)(size / sizeof(struct connection)));
 
 		for(i = 0; i < nrec; i++, connection++)
 			if((connection->ipaddr == -1) && cookieval) {
